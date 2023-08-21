@@ -258,9 +258,45 @@ static class DistanceConverterClass{
         else{ return "invalid";}
     }
 };
+static class BMICalculator{
+    static double bmiCalculated=0.0;
+    public static double returnBMIImperial(double feet, double inches, double stones, double pounds){
+        double totalPounds = BMICalculator.returnStonesToPounds(stones)+pounds;
+        double totalInches = BMICalculator.returnFeetToInches(feet)+inches;
+        bmiCalculated=((totalPounds)*703)/(totalInches*totalInches);
+        return bmiCalculated;
+    }
+    public static double returnBMIMetric(double metres, double kilograms){
+        bmiCalculated=kilograms/(metres*metres);
+        return bmiCalculated;
+    }
+    static double returnStonesToPounds(double stones){
+        return 14.0*stones;
+    }
+    static double returnFeetToInches(double feets){
+        return 12.0*feets;
+    }
+    public static string returnRange(double Value){
+        if(Value<18.50){
+            return "UnderWeight";
+        }else if((Value>=18.5)&&(Value<=24.9)){
+            return "Normal";
+        }else if((Value>=25.0)&&(Value<=29.9)){
+            return "OverWeight";
+        }else if((Value>=30.0)&&(Value<=34.9)){
+            return "Obese Class 1";
+        }else if((Value>=35.0)&&(Value<=39.9)){
+            return "Obese Class 2";
+        }else if(Value<=40.0){
+            return "Obese Class 3";
+        }else{
+            return"";
+        }
+    }
+}
 class Program{
-    
-    public static void Main(string[] args){
+
+    public void runDistanceConverter(){
         string fromUnitChoiceValidOrNot = "invalid";
         string toUnitChoiceValidOrNot = "invalid";
         string valueToConvertValidOrNot = "invalid";
@@ -303,5 +339,173 @@ class Program{
         }
         //Console.WriteLine(""+convertMetresToMiles(valueToConvert));
         DistanceConverterClass.performConversion();
+        
+    }
+    
+    public void runBMICalculator(){
+
+        string whileChoiceUnitTypeValidOrNot = "invalid";
+        string choiceUnitTypeValue="";
+        double heightFeetsValue=0.0;
+        double heightInchesValue=0.0;
+        double heightMetresValue=0.0;
+        double weightStonesValue=0.0;
+        double weightPoundsValue=0.0;
+        double weightKilogramsValue=0.0;
+        string whileHeightFeetValidOrNot="invalid";
+        string whileHeightInchesValidOrNot="invalid";
+        string whileHeightMetresValidOrNot="invalid";
+        string whileWeightStonesValidOrNot="invalid";
+        string whileWeightPoundsValidOrNot="invalid";
+        string whileWeightKilogramsValidOrNot="invalid";
+
+        Console.WriteLine("------------------------------------------\n\n");
+        Console.WriteLine("------------------------------------------");
+        Console.WriteLine("        Body Mass Index Calculator          ");
+        Console.WriteLine("           By Sandesh Koirala             ");
+        Console.WriteLine("------------------------------------------");
+
+        while(whileChoiceUnitTypeValidOrNot=="invalid"){
+
+            Console.WriteLine(" \n \n\n\n 1. Metric Units \n 2. Imperial Units \n\nPlease enter you choice ");
+            choiceUnitTypeValue=Console.ReadLine();
+
+            switch(choiceUnitTypeValue){
+                case "1":
+                    Console.WriteLine("Metric system");
+                    whileChoiceUnitTypeValidOrNot="valid";
+                    break;
+                case "2":
+                    Console.WriteLine("Imperic system");
+                    whileChoiceUnitTypeValidOrNot="valid";
+                    break;
+                default:
+                    whileChoiceUnitTypeValidOrNot="invalid";
+                    Console.WriteLine(" Invalid choice. Please try again.");
+                    break;
+            }
+        }
+        while(((whileChoiceUnitTypeValidOrNot=="valid")&&(whileHeightFeetValidOrNot=="invalid"))&&((whileChoiceUnitTypeValidOrNot=="valid")&&(whileHeightMetresValidOrNot=="invalid"))){
+            bool isDouble;
+            switch(choiceUnitTypeValue){
+                case "1":
+                    Console.WriteLine(" \n \n\n\n Enter your height in metres ");
+                    isDouble = Double.TryParse(Console.ReadLine(),out heightMetresValue);
+                    if(isDouble){
+                        whileHeightMetresValidOrNot="valid";
+                    }else{
+                        Console.WriteLine("Invalid choice. please try again");
+                    }
+                    break;
+                case "2":
+                    Console.WriteLine("\n\nPlease enter your height to the nearest feet and inches");
+                    Console.WriteLine(" \n \n\n\n Enter your height in feet ");
+                    isDouble = Double.TryParse(Console.ReadLine(),out heightFeetsValue);
+                    if(isDouble){
+                        whileHeightFeetValidOrNot="valid";
+                    }else{
+                        Console.WriteLine("Invalid choice. please try again");
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        while((whileHeightMetresValidOrNot=="invalid")&&(whileHeightFeetValidOrNot=="valid")&&(whileHeightInchesValidOrNot=="invalid")){
+            Console.WriteLine(" \n \n\n\n Enter your height in inches ");
+            bool isDouble = Double.TryParse(Console.ReadLine(),out heightInchesValue);
+            if(isDouble){
+                whileHeightInchesValidOrNot="valid";
+            }else{
+                Console.WriteLine("Invalid choice. please try again");
+            }
+        }
+
+
+        while(((whileHeightMetresValidOrNot=="valid")||(whileHeightFeetValidOrNot=="valid"))&&((whileWeightKilogramsValidOrNot=="invalid")&&(whileWeightStonesValidOrNot=="invalid"))){
+            bool isDouble;
+            switch(choiceUnitTypeValue){
+                case "1":
+                    Console.WriteLine(" \n \n\n\n Enter your weight in kilograms :");
+                    isDouble = Double.TryParse(Console.ReadLine(),out weightKilogramsValue);
+                    if(isDouble){
+                        whileWeightKilogramsValidOrNot="valid";
+                    }else{
+                        Console.WriteLine("Invalid choice. please try again");
+                    }
+                    break;
+                case "2":
+                    Console.WriteLine("\n\nPlease enter your weight to the nearest stones and pounds");
+                    Console.WriteLine(" \n \n\n\n Enter your weight in stones :");
+                    isDouble = Double.TryParse(Console.ReadLine(),out weightStonesValue);
+                    if(isDouble){
+                        whileWeightStonesValidOrNot="valid";
+                    }else{
+                        Console.WriteLine("Invalid choice. please try again");
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        
+        while((whileWeightKilogramsValidOrNot=="invalid")&&(whileWeightStonesValidOrNot=="valid")&&(whileWeightPoundsValidOrNot=="invalid")){
+            Console.WriteLine(" \n \n\n\n Enter your weight in pounds ");
+            bool isDouble = Double.TryParse(Console.ReadLine(),out weightPoundsValue);
+            if(isDouble){
+                whileWeightPoundsValidOrNot="valid";
+            }
+        }
+    
+
+        if(choiceUnitTypeValue=="1"){
+            //Console.WriteLine("height in metric system is "+heightMetresValue+" metres and weight in metric system is "+weightKilogramsValue+" kilograms.");
+            double valueBMI = BMICalculator.returnBMIMetric(heightMetresValue,weightKilogramsValue);
+            valueBMI = Math.Round(valueBMI,2);
+            Console.WriteLine("BMI is "+valueBMI.ToString("f2")+", you are in "+BMICalculator.returnRange(BMICalculator.returnBMIMetric(heightMetresValue,weightKilogramsValue))+" range");
+        }else{
+            //Console.WriteLine("height in imperial system is "+heightFeetsValue+" feets and "+heightInchesValue+" inches and weight in imperial system is "+weightStonesValue+" stones and "+weightPoundsValue+" pounds. ");
+            double valueBMI = BMICalculator.returnBMIImperial(heightFeetsValue,heightInchesValue,weightStonesValue,weightPoundsValue);
+            valueBMI = Math.Round(valueBMI,2);
+            Console.WriteLine("BMI is "+valueBMI.ToString("f2")+", you are in "+BMICalculator.returnRange(BMICalculator.returnBMIImperial(heightFeetsValue,heightInchesValue,weightStonesValue,weightPoundsValue))+" range");
+        }
+        
+        Console.WriteLine("If you are Black, Asian or other minority groups, you have a higher risk ");
+
+    }
+    public static void Main(string[] args){
+
+        string whileChoiceApplicationValidOrNot="invalid";
+        string choiceApplicationValue="";
+        while(whileChoiceApplicationValidOrNot=="invalid"){
+
+            
+            Console.WriteLine("------------------------------------------\n\n");
+            Console.WriteLine("------------------------------------------");
+            Console.WriteLine("               BNU-CO453          ");
+            Console.WriteLine("Select Application below :            ");
+            Console.WriteLine("------------------------------------------");
+
+
+            Console.WriteLine(" \n \n 1. Distance Converter \n 2. BMI Calculator \n\nPlease enter you choice ");
+            choiceApplicationValue = Console.ReadLine();
+            switch(choiceApplicationValue){
+                case "1":
+                    whileChoiceApplicationValidOrNot="valid";
+                    new Program().runDistanceConverter();
+                    break;
+                case "2":
+                    whileChoiceApplicationValidOrNot="valid";
+                    new Program().runBMICalculator();
+                    break;
+                default:
+                    whileChoiceApplicationValidOrNot="invalid";
+                    Console.WriteLine(" Invalid choice. Please try again.");
+                    break;
+            }
+        }
+    
+        
     }
 }

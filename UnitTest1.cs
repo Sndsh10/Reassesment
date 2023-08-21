@@ -34,5 +34,18 @@ namespace DistanceConverter{
             Assert.Equal("6.56168", DistanceConverterClass.convertMetresToFeet(2.0));
         }
     }
+    public class TestBMICalculator{
+        [Fact]
+        public void TestBMIImperial()
+        {
+
+            Assert.Equal(21.426311728395063, BMICalculator.returnBMIImperial(6.0,0.0,11.0,4.0));
+        }
+        [Fact]
+        public void TestBMIMetric()
+        {
+            Assert.Equal(18.591130340724717, BMICalculator.returnBMIMetric(1.72,55));
+        }
+    }
 }
 
