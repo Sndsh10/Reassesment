@@ -47,5 +47,17 @@ namespace DistanceConverter{
             Assert.Equal(18.591130340724717, BMICalculator.returnBMIMetric(1.72,55));
         }
     }
+    public class TestStudentMarks{
+        [Fact]
+        public void TestReturnGrade()
+        {
+            Assert.Equal('A', StudentMarks.returnGrade(79.0));
+        }
+        [Fact]
+        public void TestReturnGradeClassification()
+        {
+            Assert.Equal("Third class", StudentMarks.returnGradeClassification(45.0));
+        }
+    }
 }
 

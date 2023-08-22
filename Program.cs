@@ -293,6 +293,97 @@ static class BMICalculator{
             return"";
         }
     }
+};
+static class StudentMarks{
+
+    static double[] marksOfStudents={0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+    static string marksOfStudentsInputValidOrNot="invalid";
+    public static char returnGrade(double grade){
+        if((grade>=70)&&(grade<=100)){
+            return 'A';
+        }else if((grade>=60)&&(grade<=69)){
+            return 'B';
+        }else if((grade>=50)&&(grade<=59)){
+            return 'C';
+        }else if((grade>=40)&&(grade<=49)){
+            return 'D';
+        }else if((grade>=0)&&(grade<=39)){
+            return 'F';
+        }else{return' ';}
+    }
+    public static string returnGradeClassification(double grade){
+        if((grade>=70)&&(grade<=100)){
+            return "First Class";
+        }else if((grade>=60)&&(grade<=69)){
+            return "Upper second class";
+        }else if((grade>=50)&&(grade<=59)){
+            return "Lower second class";
+        }else if((grade>=40)&&(grade<=49)){
+            return "Third class";
+        }else if((grade>=0)&&(grade<=39)){
+            return "Fail";
+        }else{return" ";}
+    }
+    public static void outputMarks(){
+        Console.WriteLine("==========================================");
+        Console.WriteLine("        Listing of Student marks");
+        Console.WriteLine("==========================================");
+        for(int i=0;i<10;i++){
+            Console.WriteLine("Student "+(i+1)+", Mark = "+marksOfStudents[i]+", Grade = "+returnGrade(marksOfStudents[i]));
+        }
+    }
+    public static void inputMarks(){
+        int i = 0;
+        Console.WriteLine("\n\nInput marks for students\n\n");
+        while(marksOfStudentsInputValidOrNot=="invalid"){
+            if(i<11){
+                double currentMark;
+                Console.WriteLine("Enter mark for student "+(i+1));
+                bool isDouble = Double.TryParse(Console.ReadLine(),out currentMark);
+                if(isDouble){
+                    marksOfStudents[i]=currentMark;
+                    i=i+1;
+                }else{
+                    Console.WriteLine("Invalid input. Please try again. \n\n");
+                }
+                if((i+1)==11){
+                    marksOfStudentsInputValidOrNot="valid";
+                }
+            }
+        }
+    }
+    public static void returnGradeProfile(){
+        Console.WriteLine("==========================================");
+        Console.WriteLine("        Listing of Student grade profile");
+        Console.WriteLine("==========================================");
+        for(int i=0;i<10;i++){
+            Console.WriteLine("Student "+(i+1)+", Grade Profile = "+returnGradeClassification(marksOfStudents[i]));
+        }
+    }
+    public static string returnGradeStats(){
+        double meanMark=0.0;
+        double minimumMark=0.0;
+        double maximumMark=0.0;
+        double sum=0.0;
+        double minMarksOfStudents;
+        double maxMarksOfStudents;
+        foreach (int item in marksOfStudents)
+        {
+            sum+=item;   
+        }
+        minMarksOfStudents=marksOfStudents[0];
+        maxMarksOfStudents=marksOfStudents[0];
+        for(int i=0;i<marksOfStudents.Length;i++){
+            if(marksOfStudents[i]>maxMarksOfStudents){
+                minMarksOfStudents=marksOfStudents[i];
+            }
+            if(marksOfStudents[i]<minMarksOfStudents){
+                maxMarksOfStudents = marksOfStudents[i];
+            }
+        }
+        double averageValue=sum/marksOfStudents.Length;
+        return "average value is "+averageValue+" max is "+maxMarksOfStudents+" and min is "+minMarksOfStudents;
+    }
 }
 class Program{
 
@@ -343,6 +434,7 @@ class Program{
     }
     
     public void runBMICalculator(){
+
 
         string whileChoiceUnitTypeValidOrNot = "invalid";
         string choiceUnitTypeValue="";
@@ -474,6 +566,48 @@ class Program{
         Console.WriteLine("If you are Black, Asian or other minority groups, you have a higher risk ");
 
     }
+    
+    public void runStudentMarks(){
+        
+        string applicationValueStudentMarks="invalid";
+        string applicationCodeStudentMarksValidOrNot="invalid";
+        string inputMarksIndividualMarksValidOrNot="invalid";
+        Console.WriteLine("------------------------------------------\n\n");
+        Console.WriteLine("------------------------------------------");
+        Console.WriteLine("           Student grading app          ");
+        Console.WriteLine("           By Sandesh Koirala             ");
+        Console.WriteLine("------------------------------------------");
+
+       
+        while(applicationCodeStudentMarksValidOrNot=="invalid"){ 
+            Console.WriteLine(" \n \n 1. Input Marks \n 2. Output Marks \n 3. Output Stats \n 4. Output grade profile \n 5. Quit \n\nPlease enter you choice ");
+            applicationValueStudentMarks = Console.ReadLine();
+            switch(applicationValueStudentMarks){
+                case "1":
+                    StudentMarks.inputMarks();
+                    //applicationCodeStudentMarksValidOrNot="valid";
+                    break;
+                case "2":
+                    StudentMarks.outputMarks();
+                    //applicationCodeStudentMarksValidOrNot="valid";
+                    break;
+                case "3":
+                    Console.WriteLine(StudentMarks.returnGradeStats());
+                    break;
+                case "4":
+                    StudentMarks.returnGradeProfile();
+                    break;
+                case "5":
+                    Environment.Exit(0);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+
+    }
+    
     public static void Main(string[] args){
 
         string whileChoiceApplicationValidOrNot="invalid";
@@ -487,8 +621,7 @@ class Program{
             Console.WriteLine("Select Application below :            ");
             Console.WriteLine("------------------------------------------");
 
-
-            Console.WriteLine(" \n \n 1. Distance Converter \n 2. BMI Calculator \n\nPlease enter you choice ");
+            Console.WriteLine(" \n \n 1. Distance Converter \n 2. BMI Calculator \n 3. Student Grading app \n\nPlease enter you choice ");
             choiceApplicationValue = Console.ReadLine();
             switch(choiceApplicationValue){
                 case "1":
@@ -499,13 +632,15 @@ class Program{
                     whileChoiceApplicationValidOrNot="valid";
                     new Program().runBMICalculator();
                     break;
+                case "3":
+                    whileChoiceApplicationValidOrNot="valid";
+                    new Program().runStudentMarks();
+                    break;
                 default:
                     whileChoiceApplicationValidOrNot="invalid";
                     Console.WriteLine(" Invalid choice. Please try again.");
                     break;
             }
         }
-    
-        
     }
 }
