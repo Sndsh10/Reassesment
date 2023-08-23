@@ -375,15 +375,16 @@ static class StudentMarks{
         maxMarksOfStudents=marksOfStudents[0];
         for(int i=0;i<marksOfStudents.Length;i++){
             if(marksOfStudents[i]>maxMarksOfStudents){
-                minMarksOfStudents=marksOfStudents[i];
+                maxMarksOfStudents=marksOfStudents[i];
             }
             if(marksOfStudents[i]<minMarksOfStudents){
-                maxMarksOfStudents = marksOfStudents[i];
+                minMarksOfStudents = marksOfStudents[i];
             }
         }
         double averageValue=sum/marksOfStudents.Length;
         return "average value is "+averageValue+" max is "+maxMarksOfStudents+" and min is "+minMarksOfStudents;
     }
+
 }
 class Program{
 
@@ -578,7 +579,6 @@ class Program{
         Console.WriteLine("           By Sandesh Koirala             ");
         Console.WriteLine("------------------------------------------");
 
-       
         while(applicationCodeStudentMarksValidOrNot=="invalid"){ 
             Console.WriteLine(" \n \n 1. Input Marks \n 2. Output Marks \n 3. Output Stats \n 4. Output grade profile \n 5. Quit \n\nPlease enter you choice ");
             applicationValueStudentMarks = Console.ReadLine();
@@ -605,23 +605,78 @@ class Program{
             }
         }
 
-
     }
     
+    public void runSocialNetwork(){
+        string applicationValueSocialNetwork="invalid";
+        string applicationValueSocialNetworkValidOrNot="invalid";
+        string inputMarksIndividualMarksValidOrNot="invalid";
+        App4 newApp4 = new App4();
+        while(applicationValueSocialNetworkValidOrNot=="invalid"){
+            Console.WriteLine("------------------------------------------\n\n");
+            Console.WriteLine("------------------------------------------");
+            Console.WriteLine("              Networking App          ");
+            Console.WriteLine("            By Sandesh Koirala             ");
+            Console.WriteLine("------------------------------------------");
+            Console.WriteLine(" \n \n 1. Add message \n 2. Add photo \n 3. Display all posts \n 4. Search author \n 5. Remove message post \n 6. Remove photo post \n 7. Add comment \n 8. Like/Unlike a post \n 9. Quit \n\nPlease enter you choice ");
+            applicationValueSocialNetwork = Console.ReadLine();
+        
+            switch(applicationValueSocialNetwork){
+                case "1":
+                    //applicationValueSocialNetworkValidOrNot="valid";
+                    newApp4.addMessagePost();
+                    break;
+                case "2":
+                    //applicationValueSocialNetworkValidOrNot="valid";
+                    newApp4.addPhotoPost();
+                    break;
+                case "3":
+                    //applicationValueSocialNetworkValidOrNot="valid";
+                    newApp4.displayAll();
+                    break;
+                case "4":
+                    //applicationValueSocialNetworkValidOrNot="valid";
+                    newApp4.searchAuthor();
+                    break;
+                case "5":
+                    //applicationValueSocialNetworkValidOrNot="valid";
+                    newApp4.removeMessagePost();
+                    break;
+                case "6":
+                    //applicationValueSocialNetworkValidOrNot="valid";
+                    //new Program().runSocialNetwork();
+                    newApp4.removePhotoPost();
+                    break;
+                case "7":
+                    Console.WriteLine("feature not available");
+                    break;
+                case "8":
+                    Console.WriteLine("feature not available");
+                    break;
+                case "9":
+                    Environment.Exit(0);
+                    break;
+                default:
+                    applicationValueSocialNetworkValidOrNot="invalid";
+                    Console.WriteLine(" Invalid choice. Please try again.");
+                    break;
+            }
+        }
+    }
     public static void Main(string[] args){
 
         string whileChoiceApplicationValidOrNot="invalid";
         string choiceApplicationValue="";
+
         while(whileChoiceApplicationValidOrNot=="invalid"){
 
-            
             Console.WriteLine("------------------------------------------\n\n");
             Console.WriteLine("------------------------------------------");
             Console.WriteLine("               BNU-CO453          ");
             Console.WriteLine("Select Application below :            ");
             Console.WriteLine("------------------------------------------");
 
-            Console.WriteLine(" \n \n 1. Distance Converter \n 2. BMI Calculator \n 3. Student Grading app \n\nPlease enter you choice ");
+            Console.WriteLine(" \n \n 1. Distance Converter \n 2. BMI Calculator \n 3. Student Grading app \n 4. Social network \n\nPlease enter you choice ");
             choiceApplicationValue = Console.ReadLine();
             switch(choiceApplicationValue){
                 case "1":
@@ -635,6 +690,10 @@ class Program{
                 case "3":
                     whileChoiceApplicationValidOrNot="valid";
                     new Program().runStudentMarks();
+                    break;
+                case "4":
+                    whileChoiceApplicationValidOrNot="valid";
+                    new Program().runSocialNetwork();
                     break;
                 default:
                     whileChoiceApplicationValidOrNot="invalid";
